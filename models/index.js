@@ -2,7 +2,9 @@ const Sequelize = require("sequelize", {
   logging: false,
 });
 const db = new Sequelize("postgres://localhost:5432/wikistack");
-
+function generateSlug(title) {
+  return title.replace(/\s+/g, "_").replace(/\W/g, "");
+}
 const Page = db.define("page", {
   title: {
     type: Sequelize.STRING,
@@ -36,7 +38,3 @@ const User = db.define("user", {
 });
 
 module.exports = { db, Page, User };
-
-// module.exports = {
-//   db,
-// };

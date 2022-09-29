@@ -2,19 +2,27 @@
 // const express = require("express")
 // const app = express()
 const router = require("express").Router();
-const addPage = require("../views/addPage")
+const page = require("../models");
+const addPage = require("../views/addPage");
 
-router.get('/', (req, res, next) => {
-    res.send('hey')
-})
+router.get("/", (req, res, next) => {
+  res.send("hey");
+});
 
-router.post('/', (req, res, next) => {
-    res.json(req.body)
-    console.log(req.body)
-})
+router.post("/", async (req, res, next) => {
+  try {
+    const page = await Page.create({ title: 11, content: 111 });
 
-router.get('/add', (req, res) => {
-    res.send(addPage())
-})
+    //   res.json(req.body);
+
+    res.redirect("/");
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/add", (req, res) => {
+  res.send(addPage());
+});
 
 module.exports = router;
